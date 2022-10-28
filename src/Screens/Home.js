@@ -1,12 +1,18 @@
 import React from 'react'
-import NavigationBar from '../Components/NavigationBar'
+import BG from './../Assets/BG5.mp4'
+
+/*import NavigationBar from '../Components/NavigationBar'*/
 
 const Home = () => {
     return (
-        <div>
-            
-            <img src="https://d1v224g40dbxxy.cloudfront.net/s3fs-public/banner-images/poster2_mobile_1.jpg?VersionId=WeqzVGAT5VMelUiAwmnVDDCai3uqeGVM" className="home_bg"/>
+      <div className="home_bg">
+   <video muted loop autoPlay  alt='movies' >
+                <source src={BG} type="video/mp4"/>
+            </video>            
         </div>
+       
+         
+        
     )
 }
 

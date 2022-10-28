@@ -2,27 +2,35 @@ import React, { useState } from 'react'
 import { Container, Form, Modal, Nav, Navbar,Button } from 'react-bootstrap';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { AddMovie } from '../Slices/TaskSlice';
 
 
-const NavigationBar = ({setMovies,movies,setSearchCondition,searchRating,setSearchRating}) => {
+const NavigationBar = ({/*setMovies,movies,*/setSearchCondition,searchRating,setSearchRating}) => {
   const navigate=useNavigate()
+  var ID = function () {  
+    return Math.random().toString(36).substr(2, 9);
+  };
   
   const [show, setShow] = useState(0)
   const [movieToAdd, setMovieToAdd] = useState({
+        id:0,
         name:"",
         description:"",
         posterurl:"",
-        rating:0
+        rating:0,
+        trailer:"",
 
     }
 
     )
+    const dispatch = useDispatch()
     
     function handleAdd() {
-    setMovies([...movies, movieToAdd]);
+      dispatch(AddMovie({movieToAdd:{...movieToAdd,id:ID()}}))
     setTimeout(() => {
       setShow(false);
-    }, 1500);
+    }, 400);
   }
   
 
@@ -33,7 +41,7 @@ const NavigationBar = ({setMovies,movies,setSearchCondition,searchRating,setSear
     <Nav className="me-auto">
       <Nav.Link onClick={()=>navigate("/")} >Home</Nav.Link>
       <Nav.Link onClick={()=>navigate("/Movies")}>Movies</Nav.Link>
-      <Nav.Link >Desccripton</Nav.Link>
+      
     </Nav>
     <ReactStarsRating
     onChange={(x)=>setSearchRating(x)}
@@ -55,9 +63,11 @@ const NavigationBar = ({setMovies,movies,setSearchCondition,searchRating,setSear
             <Form.Label>Movie description</Form.Label>
 
             <Form.Control onChange={(e)=>setMovieToAdd({...movieToAdd,description:e.target.value})} type="text" placeholder="Description" />
-            <Form.Label>Movie URL</Form.Label>
+            <Form.Label>Poster URL</Form.Label>
+            <Form.Control onChange={(e)=>setMovieToAdd({...movieToAdd,posterurl:e.target.value})} type="text" placeholder="trailer" />
+            <Form.Label>Trailer URL</Form.Label>
 
-            <Form.Control onChange={(e)=>setMovieToAdd({...movieToAdd,posterurl:e.target.value})} type="url" placeholder="Poster URL" />
+            <Form.Control onChange={(e)=>setMovieToAdd({...movieToAdd,trailer:e.target.value})} type="url" placeholder="Poster URL" />
             <Form.Label>Movie rate</Form.Label>
 
 

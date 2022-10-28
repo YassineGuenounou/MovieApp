@@ -1,0 +1,1 @@
+{movie.description.substring(0,10)+"..."}
